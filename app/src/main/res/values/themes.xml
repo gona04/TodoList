@@ -3,7 +3,13 @@
     <style name="Base.Theme.TodoList" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/falcon</item>
     </style>
 
+    <style name="DialogStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
     <style name="Theme.TodoList" parent="Base.Theme.TodoList" />
 </resources>

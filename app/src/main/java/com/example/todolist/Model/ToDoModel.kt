@@ -1,34 +1,43 @@
-package com.example.todolist.Model
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class ToDoModel(
-    private var id: Int,
-    private var status: Boolean,
-    private var task: String) {
+class ToDoModel : ViewModel() {
+    private var id: Int = 0
+    private var status: Boolean = false
+    private var task: String = ""
 
-    constructor() : this(0, false , "") {
-    }
+    private val todoLiveData: MutableLiveData<ToDoModel> = MutableLiveData()
 
-    public fun setId(id: Int) {
+    fun setId(id: Int) {
         this.id = id
     }
 
-    public fun setStatus(status: Boolean) {
+    fun setStatus(status: Boolean) {
         this.status = status
     }
 
-    public fun setTask(task:String) {
+    fun setTask(task: String) {
         this.task = task
     }
 
-    public fun getId():Int {
+    fun getId(): Int {
         return this.id
     }
 
-    public fun getStatus():Boolean {
+    fun getStatus(): Boolean {
         return this.status
     }
 
-    public fun getTask():String {
+    fun getTask(): String {
         return this.task
     }
- }
+
+    fun getTodoLiveData(): LiveData<ToDoModel> {
+        return todoLiveData
+    }
+
+    fun updateTodoLiveData() {
+        todoLiveData.value = this
+    }
+}

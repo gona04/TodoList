@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.MainActivity
-import com.example.todolist.Model.ToDoModel
+import ToDoModel
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 
 class ToDoAdapter(private val activity: MainActivity) : RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
+    constructor(activity: MutableList<ToDoModel>) : this(MainActivity()) {
+
+    }
 
     private lateinit var todoList: MutableList<ToDoModel>
 
@@ -44,4 +47,3 @@ class ToDoAdapter(private val activity: MainActivity) : RecyclerView.Adapter<ToD
         var task: CheckBox = itemView.findViewById<CheckBox>(R.id.todo_checkbox)
     }
 }
-
