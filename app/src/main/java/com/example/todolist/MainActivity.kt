@@ -9,11 +9,11 @@ import com.example.todolist.Model.ToDoModel
 import com.example.todolist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-//    private lateinit var tasksRecyclerView: RecyclerView
-    private lateinit var viewBinding : ActivityMainBinding
+    private lateinit var viewBinding: ActivityMainBinding
     private lateinit var taskAdapter: ToDoAdapter
 
-    private lateinit var textList: List<ToDoModel>
+    private lateinit var taskList: MutableList<ToDoModel>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,7 +23,23 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         viewBinding.tasksRecyclerView.layoutManager = LinearLayoutManager(this)
+        taskAdapter = ToDoAdapter(this)
+        viewBinding.tasksRecyclerView.adapter = taskAdapter
 
+        taskList = mutableListOf() // Initialize the taskList with an empty MutableList
 
+        var task = ToDoModel()
+        task.setId(1)
+        task.setTask("Testing ${task.getId()}")
+        task.setStatus(false)
+
+        taskList.add(task)
+        taskList.add(task)
+        taskList.add(task)
+        taskList.add(task)
+        taskList.add(task)
+
+        taskAdapter.setTasks(taskList)
     }
 }
+

@@ -12,7 +12,7 @@ import com.example.todolist.databinding.ActivityMainBinding
 
 class ToDoAdapter(private val activity: MainActivity) : RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
 
-    private lateinit var todoList: List<ToDoModel>
+    private lateinit var todoList: MutableList<ToDoModel>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
@@ -20,8 +20,12 @@ class ToDoAdapter(private val activity: MainActivity) : RecyclerView.Adapter<ToD
         return ViewHolder(itemView)
     }
 
+    fun setTasks(toDolist: MutableList<ToDoModel>) {
+        this.todoList = toDolist
+    }
+
     override fun getItemCount(): Int {
-        return todoList.size
+        return if (::todoList.isInitialized) todoList.size else 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,12 +35,13 @@ class ToDoAdapter(private val activity: MainActivity) : RecyclerView.Adapter<ToD
         // Bind the todoModel data to the view holder
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var task: CheckBox
-
-        init {
-            task = itemView.findViewById<CheckBox>(R.id.todo_checkbox)
-        }
+    fun setTodoList(todoList: MutableList<ToDoModel>) {
+        this.todoList = todoList
+        notifyDataSetChanged()
     }
 
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var task: CheckBox = itemView.findViewById<CheckBox>(R.id.todo_checkbox)
+    }
 }
+
