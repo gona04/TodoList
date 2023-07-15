@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="nepal">#98a6c0</color>
+    <color name="falcon">#8C5F6F</color>
 </resources>

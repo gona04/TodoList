@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nepal">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/double_table"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/double_check" />
+    <TextView
+        android:id="@+id/just_do_it_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/double_table"
+        android:textColor="@color/falcon"
+        android:text="@string/just_do_it"/>
+
+</RelativeLayout>
