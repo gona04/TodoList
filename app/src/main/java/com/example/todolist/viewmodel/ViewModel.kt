@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MyViewModel : ViewModel() {
+class ToDoViewModel : ViewModel() {
 
      val todoMutableLiveData: MutableLiveData<ToDoModel> = MutableLiveData()
 }

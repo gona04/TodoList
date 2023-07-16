@@ -21,6 +21,15 @@
             android:textColor="@color/falcon"
             android:checked="true"
             />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_task"
+            android:src="@drawable/baseline_delete_24"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentTop="true"
+            />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
 
