@@ -1,15 +1,16 @@
 package com.example.todolist
 
-import AddNewTask
+import AddNewTaskFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.Adapter.ToDoAdapter
 import com.example.todolist.databinding.ActivityMainBinding
 import ToDoModel
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todolist.adapter.ToDoAdapter
+
+import com.example.todolist.viewmodel.MyViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private  var taskList: MutableList<ToDoModel> = mutableListOf()
 
-    private lateinit var todo: ToDoModel
+    private lateinit var myViewModel: MyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,41 +28,32 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        todo = ViewModelProvider(this).get(ToDoModel::class.java)
+        myViewModel = ViewModelProvider(this)[MyViewModel::class.java]
 
-        observeTodoLiveData()
-        /*  viewBinding.tasksRecyclerView.layoutManager = LinearLayoutManager(this)
-          taskAdapter = ToDoAdapter(this)
+
+          viewBinding.tasksRecyclerView.layoutManager = LinearLayoutManager(this)
+          taskAdapter = ToDoAdapter()
           viewBinding.tasksRecyclerView.adapter = taskAdapter
-
           taskList = mutableListOf() // Initialize the taskList with an empty MutableList
 
-          var task = ToDoModel()
-          task.setId(1)
-          task.setTask("Testing ${task.getId()}")
-          task.setStatus(false)
-
-          taskList.add(task)
-          taskList.add(task)
-          taskList.add(task)
-          taskList.add(task)
-          taskList.add(task)
-
-          taskAdapter.setTasks(taskList)*/
         addBtnClicked()
+        observeTodoLiveData()
     }
 
-    fun observeTodoLiveData() {
-        todo.getTodoLiveData().observe(this) { updatedTodo ->
+    private fun observeTodoLiveData() {
+
+        myViewModel.todoMutableLiveData.observe(this) { updatedTodo ->
             // Handle updatedTodo, which contains the latest data
-            Log.d("FROM MAIN", updatedTodo.getTask())
+            Log.d("FROM MAIN", updatedTodo.task)
+            taskList.add(updatedTodo)
+            taskAdapter.setTodoList(taskList)
         }
     }
 
     fun addBtnClicked() {
         viewBinding.fab.setOnClickListener {
-            val addNewTaskDialog = AddNewTask.newInstance(todo)
-            addNewTaskDialog.show(supportFragmentManager, AddNewTask.TAG)
+            val addNewTaskFragmentDialog = AddNewTaskFragment.newInstance(myViewModel = myViewModel)
+            addNewTaskFragmentDialog.show(supportFragmentManager, AddNewTaskFragment.TAG)
         }
     }
 }

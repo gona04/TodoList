@@ -1,19 +1,14 @@
-package com.example.todolist.Adapter
+package com.example.todolist.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.MainActivity
 import ToDoModel
 import com.example.todolist.R
-import com.example.todolist.databinding.ActivityMainBinding
 
-class ToDoAdapter(private val activity: MainActivity) : RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
-    constructor(activity: MutableList<ToDoModel>) : this(MainActivity()) {
-
-    }
+ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
 
     private lateinit var todoList: MutableList<ToDoModel>
 
@@ -33,8 +28,8 @@ class ToDoAdapter(private val activity: MainActivity) : RecyclerView.Adapter<ToD
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val todoModel: ToDoModel = todoList[position]
-        holder.task.isChecked = todoModel.getStatus()
-        holder.task.text = todoModel.getTask()
+        holder.task.isChecked = todoModel.status
+        holder.task.text = todoModel.task
         // Bind the todoModel data to the view holder
     }
 

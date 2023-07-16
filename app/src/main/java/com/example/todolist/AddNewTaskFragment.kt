@@ -12,30 +12,24 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.MainActivity
 import com.example.todolist.R
 import com.example.todolist.databinding.NewTaskBinding
+import com.example.todolist.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class AddNewTask(todo: ToDoModel) : BottomSheetDialogFragment() {
+class AddNewTaskFragment(var viewModel: MyViewModel) : BottomSheetDialogFragment() {
     private var _viewBinding: NewTaskBinding? = null
     private val viewBinding get() = _viewBinding!!
 
-    private lateinit var todo: ToDoModel
-
-    constructor():this(ToDoModel()) {
-
-    }
 
     companion object {
         const val TAG: String = "ActionButtonDialog"
 
-        fun newInstance(todo: ToDoModel): AddNewTask {
-            return AddNewTask(todo)
+        fun newInstance(myViewModel: MyViewModel): AddNewTaskFragment {
+            return AddNewTaskFragment(myViewModel)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var activity = requireActivity()
-        todo = ViewModelProvider(this).get(ToDoModel::class.java)
         setStyle(STYLE_NORMAL, R.style.DialogStyle)
     }
 
@@ -83,18 +77,10 @@ class AddNewTask(todo: ToDoModel) : BottomSheetDialogFragment() {
         })
 
         saveBtn.setOnClickListener {
-            todo.getTodoLiveData().observe(viewLifecycleOwner) { updatedTodo ->
-                // Handle updatedTodo, which contains the latest data
-                Log.d("FROM ADDNEWTASK", updatedTodo.getTask())
-            }
-
             // Update the values in the ToDoModel
-            todo.setTask(taskText.text.toString())
-            todo.setStatus(false)
-            todo.setId(1)
-            todo.updateTodoLiveData()
-
-            (activity as MainActivity).observeTodoLiveData()
+            val data = ToDoModel(taskText.text.toString(),false)
+            viewModel.todoMutableLiveData.value = data
+            dismiss()
         }
     }
 
